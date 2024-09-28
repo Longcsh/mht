@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Nhân sự</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        input {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quản lý Nhân sự</h1>
+    
+    <h2>Thêm Nhân viên</h2>
+    <input type="text" id="name" placeholder="Tên" required>
+    <input type="number" id="age" placeholder="Tuổi" required>
+    <input type="text" id="position" placeholder="Vị trí" required>
+    <input type="text" id="phone" placeholder="Số điện thoại" required>
+    <button onclick="addEmployee()">Thêm</button>
+    
+    <h2>Danh sách Nhân viên</h2>
+    <table id="employeeTable">
+        <thead>
+            <tr>
+                <th>Tên</th>
+                <th>Tuổi</th>
+                <th>Vị trí</th>
+                <th>Số điện thoại</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dữ liệu nhân viên sẽ được thêm vào đây -->
+        </tbody>
+    </table>
+
+    <script>
+        function addEmployee() {
+            const name = document.getElementById("name").value;
+            const age = document.getElementById("age").value;
+            const position = document.getElementById("position").value;
+            const phone = document.getElementById("phone").value;
+
+            if (name && age && position && phone) {
+                const table = document.getElementById("employeeTable").getElementsByTagName('tbody')[0];
+                const newRow = table.insertRow();
+
+                newRow.insertCell(0).innerText = name;
+                newRow.insertCell(1).innerText = age;
+                newRow.insertCell(2).innerText = position;
+                newRow.insertCell(3).innerText = phone;
+                newRow.insertCell(4).innerHTML = '<button onclick="deleteEmployee(this)">Xóa</button>';
+
+                // Xóa input
+                document.getElementById("name").value = '';
+                document.getElementById("age").value = '';
+                document.getElementById("position").value = '';
+                document.getElementById("phone").value = '';
+            } else {
+                alert("Vui lòng điền đầy đủ thông tin.");
+            }
+        }
+
+        function deleteEmployee(button) {
+            const row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+    </script>
+</body>
+</html>
